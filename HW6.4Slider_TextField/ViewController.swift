@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBOutlet weak var enterTextField: UITextField!
     @IBOutlet weak var textFieldLabel: UILabel!
     @IBOutlet weak var sliderLabel: UILabel!
    
@@ -24,12 +25,6 @@ class ViewController: UIViewController {
         
         // 處理字數
         let len = sender.text!
-        
-        // 處理文字大小
-        let font = sender.font!
-        let sliderValue2: CGFloat = CGFloat(sliderValue1)
-        sender.font! = font.withSize(sliderValue2)
-        
         textFieldLabel.text = "字數:\(len.count)"
     }
     
@@ -40,7 +35,17 @@ class ViewController: UIViewController {
         let numberString = String(format: "%.2f", sliderValue2)
         sliderLabel.text = "文字大小: \(numberString)"
         
-       
+        //宣告一個常數font，存入enterTextField.font
+        var font = enterTextField.font
+        //宣告一個常數fontSize，當作mySlider的sender.value
+        let fontSize = sender.value
+        //宣告一個常數textFieldSize(必須是CGFloat型別)，並將fontSize轉成CGFloat存入
+        let textFieldSize:CGFloat = CGFloat(fontSize)
+        
+        //滑動slider時，enterTextField字體會放大/縮小
+        //withSize為蘋果寫的一個func(如下)，把textFieldSize當作參數回傳UIFont
+        //func withSize(_ fontSize: CGFloat) -> UIFont
+        enterTextField.font = font?.withSize(textFieldSize)
         
     }
 }
